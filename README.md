@@ -1,1 +1,1 @@
-# mawarith-calculatoj
+# mawarith-calculator
