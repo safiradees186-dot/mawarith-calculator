@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>حاسبة المواريث</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f2e8;--cd:#fffdf8;--tx:#16302a;--mu:#6b7a74;--pr:#0b5d4a;--p2:#e4f0ea;--bd:#e6dcc6;--gd:#c49a3c;--gd2:#f6ebd0;--h1:#06382d;--h2:#0e7a5f;--wa:#fbf1d6;--wt:#6b4e00;--sh:0 6px 20px rgba(11,93,74,.10);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1512;--cd:#16211d;--tx:#eaf1ee;--mu:#9db0a8;--pr:#4cc9a1;--p2:#193a30;--bd:#2a3b34;--gd:#e0b955;--gd2:#2e2812;--h1:#04241c;--h2:#0b5d4a;--wa:#3a3015;--wt:#f0d48a;--sh:0 6px 20px rgba(0,0,0,.35);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0d1512;--cd:#16211d;--tx:#eaf1ee;--mu:#9db0a8;--pr:#4cc9a1;--p2:#193a30;--bd:#2a3b34;--gd:#e0b955;--gd2:#2e2812;--h1:#04241c;--h2:#0b5d4a;--wa:#3a3015;--wt:#f0d48a;--sh:0 6px 20px rgba(0,0,0,.35);color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Cairo,system-ui,"Segoe UI",Tahoma,Arial,sans-serif;line-height:1.7}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--h1);z-index:10}
+.hero{background:radial-gradient(circle at 15% 0,var(--h2),transparent 55%),linear-gradient(160deg,var(--h1),var(--h2));color:#fff;text-align:center;padding:34px 20px 70px;position:relative;overflow:hidden;border-radius:0 0 34px 34px}
+.hero::before{content:"";position:absolute;inset:0;opacity:.13;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M30 4l8 14 16 2-12 11 3 16-15-8-15 8 3-16L6 20l16-2z' fill='none' stroke='%23fff' stroke-width='1.2'/%3E%3C/svg%3E")}
+.orn{color:var(--gd);font-size:22px;letter-spacing:10px;position:relative}
+h1{font-family:Amiri,"Traditional Arabic",serif;font-size:38px;margin:2px 0 4px;color:#f4d98b;position:relative;line-height:1.3}
+.sub{font-size:13px;opacity:.85;margin:0;position:relative}
+main{max-width:560px;margin:-44px auto 0;padding:0 16px 28px;position:relative}
+h2{font-family:Amiri,serif;font-size:20px;margin:0 0 12px;color:var(--pr);display:flex;align-items:center;gap:8px}
+h2::before{content:"";width:8px;height:8px;background:var(--gd);transform:rotate(45deg)}
+.cd{background:var(--cd);border:1px solid var(--bd);border-radius:20px;padding:16px;margin-bottom:14px;box-shadow:var(--sh)}
+.seg{display:flex;gap:6px;background:var(--p2);padding:5px;border-radius:16px}
+.seg button{flex:1;padding:11px;border:0;border-radius:12px;background:transparent;color:var(--pr);font:600 16px Cairo,system-ui,sans-serif;cursor:pointer;transition:.2s}
+.seg button.on{background:linear-gradient(135deg,var(--h2),var(--h1));color:#f4d98b;box-shadow:0 4px 12px rgba(6,56,45,.35)}
+.row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px dashed var(--bd);font-weight:600}
+.row:last-child{border:0}
+.st{display:flex;align-items:center;gap:6px;background:var(--p2);border-radius:30px;padding:3px}
+.st button{width:36px;height:36px;border-radius:50%;border:0;background:var(--cd);color:var(--pr);font-size:22px;line-height:1;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.12)}
+.st button:active{background:var(--gd);color:#fff}
+.st b{min-width:30px;text-align:center;font-size:17px;color:var(--pr)}
+label{display:block;font-size:14px;font-weight:600;margin:10px 0 5px;color:var(--mu)}
+input{width:100%;padding:12px 14px;border:1.5px solid var(--bd);border-radius:14px;background:var(--bg);color:var(--tx);font:600 17px Cairo,system-ui,sans-serif;outline:0}
+input:focus{border-color:var(--gd);box-shadow:0 0 0 3px var(--gd2)}
+.res{border-right:5px solid var(--gd)}
+.res .t{display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:17px}
+.res .fc{font-family:Amiri,serif;font-size:22px;color:var(--pr);background:var(--gd2);padding:0 14px;border-radius:12px;direction:ltr}
+.bar{height:8px;background:var(--p2);border-radius:8px;margin:10px 0 6px;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--h2),var(--gd));border-radius:8px}
+.res .m{color:var(--mu);font-size:13px}
+.res .a{margin-top:8px;font-size:14px;font-weight:600;color:var(--pr);background:var(--p2);padding:6px 12px;border-radius:10px}
+.nt{background:var(--wa);color:var(--wt);border-radius:14px;padding:11px 14px;font-size:13px;margin-bottom:12px;border:1px solid var(--gd2)}
+.ft{font-size:12px;color:var(--mu);text-align:center;padding:6px 8px}
+</style>
+</head>
+<body>
+<header class="hero"><div class="orn">✦ ✦ ✦</div><h1>حاسبة المواريث</h1><p class="sub">وفق قواعد الفرائض عند جمهور الفقهاء</p></header>
+<main>
+<div class="cd"><h2>الميت</h2><div class="seg"><button data-sex="1" class="on">ذكر</button><button data-sex="0">أنثى</button></div></div>
+<div class="cd"><h2>الورثة الموجودون</h2><div id="hr"></div></div>
+<div class="cd"><h2>التركة</h2>
+<label for="es">قيمة التركة</label><input id="es" type="number" inputmode="decimal" min="0" placeholder="0">
+<label for="db">الديون وتكاليف الدفن</label><input id="db" type="number" inputmode="decimal" min="0" placeholder="0">
+<label for="wl">الوصية (لا تتجاوز الثلث)</label><input id="wl" type="number" inputmode="decimal" min="0" placeholder="0"></div>
+<div id="out"></div>
+<p class="ft">للاسترشاد فقط، ولا يغني عن حكم المحكمة أو فتوى أهل العلم. لا تشمل الحاسبة: الجد والجدات، والأعمام وأبناءهم، وذوي الأرحام، والحمل، والمفقود، وموانع الإرث.</p>
+</main>
+<script>
+const G=[['hus','الزوج',1,'f'],['wiv','الزوجات',4,'m'],['fat','الأب',1],['mot','الأم',1],['son','الأبناء',20],['dau','البنات',20],['gson','أبناء الابن',20],['gdau','بنات الابن',20],['fbro','الإخوة الأشقاء',20],['fsis','الأخوات الشقيقات',20],['pbro','الإخوة لأب',20],['psis','الأخوات لأب',20],['uter','الإخوة والأخوات لأم',20]];
+const S={male:true,c:{}};G.forEach(g=>S.c[g[0]]=0);
+const gcd=(a,b)=>b?gcd(b,a%b):a;
+const fr=(n,d=1)=>{const g=gcd(Math.abs(n),d)||1;return{n:n/g,d:d/g}};
+const add=(a,b)=>fr(a.n*b.d+b.n*a.d,a.d*b.d),sub=(a,b)=>add(a,{n:-b.n,d:b.d}),mul=(a,b)=>fr(a.n*b.n,a.d*b.d),div=(a,b)=>fr(a.n*b.d,a.d*b.n);
+const val=a=>a.n/a.d,tx=a=>a.d===1?String(a.n):a.n+'/'+a.d;
+const fmt=n=>n.toLocaleString('en-US',{maximumFractionDigits:2});
+function calc(c,male){
+ const Z=fr(0),ONE=fr(1),fx=[],notes=[];let grp=null;
+ const hasM=c.son>0||c.gson>0,hasD=c.son+c.dau+c.gson+c.gdau>0;
+ const sib=c.fbro+c.fsis+c.pbro+c.psis+c.uter,sp=male?c.wiv:c.hus,fem=c.dau>0||c.gdau>0;
+ const put=(k,s,isS)=>{if(c[k]>0)fx.push({k,s,sp:!!isS})};
+ if(male)put('wiv',hasD?fr(1,8):fr(1,4),1);else put('hus',hasD?fr(1,4):fr(1,2),1);
+ if(c.mot){let m=(hasD||sib>=2)?fr(1,6):fr(1,3);
+  if(c.fat&&sp&&!hasD&&sib===0){m=mul(fr(1,3),sub(ONE,fx[0].s));notes.push('مسألة العمرية: للأم ثلث الباقي بعد نصيب الزوج أو الزوجة.')}
+  put('mot',m)}
+ if(c.fat&&hasD)put('fat',fr(1,6));
+ if(!c.son&&c.dau)put('dau',c.dau===1?fr(1,2):fr(2,3));
+ if(!c.son&&!c.gson&&c.gdau){if(!c.dau)put('gdau',c.gdau===1?fr(1,2):fr(2,3));else if(c.dau===1)put('gdau',fr(1,6))}
+ let gh=false;
+ if(c.son)grp=[['son',2],['dau',1]];
+ else if(c.gson)grp=[['gson',2],['gdau',1]];
+ else if(c.fat)grp=[['fat',1]];
+ else{
+  if(c.fbro)grp=[['fbro',2],['fsis',1]];
+  else if(c.fsis){if(fem){grp=[['fsis',1]];gh=true}else put('fsis',c.fsis===1?fr(1,2):fr(2,3))}
+  if(!c.fbro&&!gh){
+   if(c.pbro)grp=[['pbro',2],['psis',1]];
+   else if(c.psis&&c.fsis<2){
+    if(c.fsis===1)put('psis',fr(1,6));
+    else if(fem)grp=[['psis',1]];
+    else put('psis',c.psis===1?fr(1,2):fr(2,3));
+   }
+  }
+ }
+ if(!hasD&&!c.fat&&c.uter)put('uter',c.uter===1?fr(1,6):fr(1,3));
+ const sum=fx.reduce((a,x)=>add(a,x.s),Z),res={};
+ if(val(sum)>1){fx.forEach(x=>res[x.k]={s:div(x.s,sum),t:'فرض بعد العول'});notes.push('عالت المسألة: زادت الفروض على التركة فنقصت الأنصبة بنسبة واحدة.')}
+ else{
+  const rem=sub(ONE,sum);
+  fx.forEach(x=>res[x.k]={s:x.s,t:'فرض'});
+  if(grp){
+   const U=grp.reduce((a,[k,w])=>a+c[k]*w,0);
+   grp.forEach(([k,w])=>{if(!c[k])return;
+    const p=rem.n>0?mul(rem,fr(c[k]*w,U)):Z;
+    if(res[k])res[k]={s:add(res[k].s,p),t:'فرض + تعصيب'};else res[k]={s:p,t:rem.n>0?'تعصيب':'تعصيب (لم يبقَ شيء)'};
+   });
+   if(grp.length>1&&rem.n>0)notes.push('للذكر مثل حظ الأنثيين في حصة التعصيب.');
+  }else if(rem.n>0){
+   const el=fx.filter(x=>!x.sp);
+   if(el.length){const se=el.reduce((a,x)=>add(a,x.s),Z);el.forEach(x=>res[x.k]={s:add(x.s,mul(rem,div(x.s,se))),t:'فرض + رد'});notes.push('بقي من التركة شيء ولا عاصب، فرُدّ على أصحاب الفروض بنسبة فروضهم (عدا الزوجين).')}
+   else notes.push('بقي من التركة جزء لا يستحقه الزوجان بالفرض، ويعود لباقي الأقارب أو بيت المال، وهذا خارج نطاق الحاسبة.')
+  }
+ }
+ const rows=G.filter(g=>res[g[0]]).map(g=>({k:g[0],n:g[1],cnt:c[g[0]],...res[g[0]]}));
+ const bl=G.filter(g=>c[g[0]]>0&&!res[g[0]]).map(g=>g[1]);
+ return{rows,bl,notes};
+}
+function form(){
+ document.getElementById('hr').innerHTML=G.filter(g=>!g[3]||(g[3]==='m')===S.male).map(g=>`<div class="row"><span>${g[1]}</span><div class="st"><button data-k="${g[0]}" data-d="-1">−</button><b>${S.c[g[0]]}</b><button data-k="${g[0]}" data-d="1">+</button></div></div>`).join('');
+}
+function out(){
+ const c=S.c,o=document.getElementById('out');
+ if(G.every(g=>!c[g[0]])){o.innerHTML='<div class="nt">اختر الورثة لتظهر الأنصبة.</div>';return}
+ const e=+document.getElementById('es').value||0,d=+document.getElementById('db').value||0,w0=+document.getElementById('wl').value||0;
+ const net=Math.max(e-d,0),w=Math.min(w0,net/3),D=net-w;
+ const r=calc(c,S.male);let h='';
+ if(w0>w)h+='<div class="nt">الوصية تزيد على ثلث التركة، فحُسبت بقدر الثلث. وما زاد عليه يحتاج إلى إجازة الورثة.</div>';
+ r.notes.forEach(n=>h+=`<div class="nt">${n}</div>`);
+ let tot=fr(0);
+ r.rows.forEach(x=>{tot=add(tot,x.s);const a=D*val(x.s);
+  const pc=(val(x.s)*100).toFixed(2);h+=`<div class="cd res"><div class="t"><span>${x.n}${x.cnt>1?' ('+x.cnt+')':''}</span><span class="fc">${tx(x.s)}</span></div><div class="bar"><i style="width:${Math.min(pc,100)}%"></i></div><div class="m">${x.t} · ${pc}%</div>${D>0?`<div class="a">المجموع: ${fmt(a)}${x.cnt>1?' · لكل فرد: '+fmt(a/x.cnt):''}</div>`:''}</div>`});
+ if(r.bl.length)h+=`<div class="nt">محجوبون ولا يرثون هنا: ${r.bl.join('، ')}</div>`;
+ if(D>0&&w>0)h+=`<div class="nt">الوصية المخصومة: ${fmt(w)} · الصافي للورثة: ${fmt(D)}</div>`;
+ o.innerHTML=h;
+}
+document.addEventListener('click',e=>{
+ const b=e.target.closest('button');if(!b)return;
+ if(b.dataset.sex!==undefined){S.male=b.dataset.sex==='1';S.c.hus=0;S.c.wiv=0;document.querySelectorAll('.seg button').forEach(x=>x.classList.toggle('on',x===b))}
+ else if(b.dataset.k){const g=G.find(x=>x[0]===b.dataset.k);S.c[g[0]]=Math.min(g[2],Math.max(0,S.c[g[0]]+ +b.dataset.d))}
+ else return;
+ form();out();
+});
+['es','db','wl'].forEach(i=>document.getElementById(i).addEventListener('input',out));
+form();out();
+</script>
+</body>
+</html>
